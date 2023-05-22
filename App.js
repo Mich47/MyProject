@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -18,9 +19,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.images} source={{ uri: BGR_IMAGE }}>
-        <Text>Open up</Text>
         <RegistrationScreen />
-        <StatusBar style="auto" />
+        {/* <ScrollView>
+        </ScrollView> */}
+        {/* <StatusBar style="auto" /> */}
       </ImageBackground>
     </View>
   );
@@ -34,7 +36,9 @@ const styles = StyleSheet.create({
   images: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-end",
+    // alignItems: "center",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
