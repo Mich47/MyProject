@@ -1,11 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+
+import RegistrationScreen from "./Screens/RegistrationScreen";
+
+import bgrImage from "./assets/images/background.jpg";
+const BGR_IMAGE = Image.resolveAssetSource(bgrImage).uri;
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <ImageBackground style={styles.images} source={{ uri: BGR_IMAGE }}>
+        <Text>Open up</Text>
+        <RegistrationScreen />
+        <StatusBar style="auto" />
+      </ImageBackground>
     </View>
   );
 }
@@ -13,8 +29,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+  },
+  images: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
