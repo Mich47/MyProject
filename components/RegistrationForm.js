@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     height: 25,
   },
   title: {
+    fontFamily: "Roboto-Medium",
     fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
@@ -125,12 +126,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonText: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
     color: "#FFFFFF",
   },
   link: {
+    fontFamily: "Roboto-Regular",
     textAlign: "center",
     fontSize: 16,
     lineHeight: 19,

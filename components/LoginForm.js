@@ -33,7 +33,7 @@ export function LoginForm({ setIsLoginScreen }) {
           style={styles.buttonSubmit}
           onPress={handleSubmit}
         >
-          <Text style={styles.buttonText}>Зареєструватися</Text>
+          <Text style={styles.buttonText}>Увійти</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -48,6 +48,7 @@ export function LoginForm({ setIsLoginScreen }) {
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: "Roboto-Medium",
     fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
@@ -70,12 +71,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonText: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
     color: "#FFFFFF",
   },
   link: {
+    fontFamily: "Roboto-Regular",
     textAlign: "center",
     fontSize: 16,
     lineHeight: 19,

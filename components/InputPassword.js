@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   input: {
+    fontFamily: "Roboto-Regular",
     borderWidth: 1,
     color: "#212121",
     backgroundColor: "#F6F6F6",
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   showPassText: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
