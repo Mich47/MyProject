@@ -31,17 +31,17 @@ export function RegistrationForm() {
               }}
             />
             <Image
-              style={styles.imageAdd}
-              source={require("../assets/images/add.png")}
+              style={{
+                ...styles.imageAdd,
+                ...{ transform: [{ rotate: "45deg" }] },
+              }}
+              source={require("../assets/images/remove.png")}
             />
           </>
         ) : (
           <Image
-            style={{
-              ...styles.imageAdd,
-              ...{ transform: [{ rotate: "45deg" }] },
-            }}
-            source={require("../assets/images/remove.png")}
+            style={styles.imageAdd}
+            source={require("../assets/images/add.png")}
           />
         )}
       </View>

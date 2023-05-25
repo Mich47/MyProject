@@ -6,10 +6,10 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { RegistrationForm } from "../components/RegistrationForm";
-import { MainContainer } from "../components/MainContainer";
+import { LoginForm } from "../../components/LoginForm";
+import { MainContainer } from "../../components/MainContainer";
 
-export default function RegistrationScreen() {
+export default function LoginScreen() {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
 
   useEffect(() => {
@@ -31,20 +31,18 @@ export default function RegistrationScreen() {
       <KeyboardAvoidingView
         style={{
           ...styles.form,
-          marginBottom: isKeyboardShow ? -175 : 0,
+          paddingTop: 32,
+          paddingBottom: 144,
+          marginBottom: isKeyboardShow ? -241 : 0,
         }}
       >
-        <RegistrationForm />
+        <LoginForm />
       </KeyboardAvoidingView>
     </MainContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
   form: {
     // position: "absolute",
     // left: 0,
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    paddingBottom: 78,
+    paddingBottom: 68,
     gap: 32,
   },
 });

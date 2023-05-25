@@ -1,13 +1,15 @@
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 
-import RegistrationScreen from "./Screens/RegistrationScreen";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
 
-import LoginScreen from "./Screens/LoginScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
-const AuthStack = createStackNavigator();
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { PostsScreen } from "./Screens/main/PostsScreen";
+import { CreatePostsScreen } from "./Screens/main/CreatePostsScreen";
+import { ProfileScreen } from "./Screens/main/ProfileScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,14 +22,19 @@ export default function App() {
     return null;
   }
 
+  const Tab = createBottomTabNavigator();
+  const AuthStack = createStackNavigator();
+
   return (
     <NavigationContainer>
-      <AuthStack.Navigator initialRouteName="Login">
+      <Tab.Navigator initialRouteName="Posts">
+        <Tab.Screen options={{}} name="Posts" component={PostsScreen} />
+        <Tab.Screen name="Create" component={CreatePostsScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+      {/* <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
-          options={{
-            headerShown: false,
-            cardStyle: { backgroundColor: "transparent" },
-          }}
+          options={{ headerShown: false }}
           name="Login"
           component={LoginScreen}
         />
@@ -36,7 +43,7 @@ export default function App() {
           name="Register"
           component={RegistrationScreen}
         />
-      </AuthStack.Navigator>
+      </AuthStack.Navigator> */}
     </NavigationContainer>
   );
 }
