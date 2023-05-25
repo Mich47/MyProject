@@ -2,10 +2,13 @@ import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { InputPassword } from "../components/InputPassword";
 import { Input } from "../components/Input";
+import { useNavigation } from "@react-navigation/native";
 
-export function LoginForm({ setIsLoginScreen }) {
+export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
     console.log("FormData:", { email, password });
@@ -37,7 +40,7 @@ export function LoginForm({ setIsLoginScreen }) {
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => setIsLoginScreen(false)}
+          onPress={() => navigation.navigate("Register")}
         >
           <Text style={styles.link}>Немає аккаунта? Зареєструватися</Text>
         </TouchableOpacity>

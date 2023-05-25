@@ -7,8 +7,9 @@ import {
 } from "react-native";
 
 import { LoginForm } from "../components/LoginForm";
+import { MainContainer } from "../components/MainContainer";
 
-export default function LoginScreen({ setIsLoginScreen }) {
+export default function LoginScreen() {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
 
   useEffect(() => {
@@ -26,16 +27,18 @@ export default function LoginScreen({ setIsLoginScreen }) {
   }, []);
 
   return (
-    <KeyboardAvoidingView
-      style={{
-        ...styles.form,
-        paddingTop: 32,
-        paddingBottom: 144,
-        marginBottom: isKeyboardShow ? -241 : 0,
-      }}
-    >
-      <LoginForm setIsLoginScreen={setIsLoginScreen} />
-    </KeyboardAvoidingView>
+    <MainContainer>
+      <KeyboardAvoidingView
+        style={{
+          ...styles.form,
+          paddingTop: 32,
+          paddingBottom: 144,
+          marginBottom: isKeyboardShow ? -241 : 0,
+        }}
+      >
+        <LoginForm />
+      </KeyboardAvoidingView>
+    </MainContainer>
   );
 }
 

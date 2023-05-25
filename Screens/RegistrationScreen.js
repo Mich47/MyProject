@@ -7,8 +7,9 @@ import {
 } from "react-native";
 
 import { RegistrationForm } from "../components/RegistrationForm";
+import { MainContainer } from "../components/MainContainer";
 
-export default function RegistrationScreen({ setIsLoginScreen }) {
+export default function RegistrationScreen() {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
 
   useEffect(() => {
@@ -26,18 +27,24 @@ export default function RegistrationScreen({ setIsLoginScreen }) {
   }, []);
 
   return (
-    <KeyboardAvoidingView
-      style={{
-        ...styles.form,
-        marginBottom: isKeyboardShow ? -175 : 0,
-      }}
-    >
-      <RegistrationForm setIsLoginScreen={setIsLoginScreen} />
-    </KeyboardAvoidingView>
+    <MainContainer>
+      <KeyboardAvoidingView
+        style={{
+          ...styles.form,
+          marginBottom: isKeyboardShow ? -175 : 0,
+        }}
+      >
+        <RegistrationForm />
+      </KeyboardAvoidingView>
+    </MainContainer>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
   form: {
     // position: "absolute",
     // left: 0,
