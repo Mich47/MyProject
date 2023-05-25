@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
-import { Dimensions, StyleSheet } from "react-native";
 
 import RegistrationScreen from "./Screens/RegistrationScreen";
 
