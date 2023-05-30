@@ -101,10 +101,14 @@ export function Routes({ isAuth }) {
         options={({ navigation }) => {
           return {
             headerTitle: "Створити публікацію",
+            tabBarVisible: false,
             tabBarIcon: () => {
               return getIcon(
                 isUserTabActive ? ICONS_MAP.userWhite : ICONS_MAP.addWhite
               );
+            },
+            tabBarStyle: {
+              display: "none",
             },
             tabBarItemStyle: {
               width: 70,
