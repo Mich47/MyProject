@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 
 export const ProfileScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>ProfileScreen</Text>
-    </View>
+    <ScrollView style={{ backgroundColor: "#fff" }}>
+      <View style={styles.container}>
+        <Text>ProfileScreen</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     paddingHorizontal: 16,
     paddingVertical: 32,
     display: "flex",

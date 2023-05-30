@@ -4,7 +4,7 @@ import { PostCard } from "../../components/PostCard";
 
 export const PostsScreen = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <UserCard />
         <PostCard />
@@ -17,7 +17,6 @@ export const PostsScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     height: "100%",
     paddingHorizontal: 16,
     paddingVertical: 32,

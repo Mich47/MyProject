@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
-import { Comments } from "./Comments/Comments";
-import { Location } from "./Location/Location";
+import { Comments } from "./Comments";
+import { Location } from "./Location";
 
 import testPicture from "../assets/images/forest.jpg";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
@@ -8,7 +8,7 @@ const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 export const PostCard = ({
   picture = DEFAULT_IMAGE,
   title = "Ліс",
-  commentsCount = 0,
+  commentsCount = 1,
   location = "Ukraine",
 }) => {
   return (

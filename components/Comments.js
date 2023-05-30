@@ -1,15 +1,11 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { ICONS_MAP, getIcon } from "./Icons/Icons";
 
 export const Comments = ({ commentsCount = 0 }) => {
-  const icon =
-    commentsCount > 0
-      ? require("./img/message-circle.png")
-      : require("./img/no-message.png");
+  const icon = commentsCount > 0 ? ICONS_MAP.message : ICONS_MAP.messageLight;
   return (
     <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image style={styles.icon} source={icon} />
-      </View>
+      {getIcon(icon)}
       <Text style={styles.text}>{commentsCount}</Text>
     </View>
   );
@@ -22,14 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 6,
-  },
-  iconContainer: {
-    width: 24,
-    height: 24,
-  },
-  icon: {
-    width: "100%",
-    height: "100%",
   },
   text: {
     fontFamily: "Roboto-Regular",
