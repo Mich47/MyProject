@@ -1,12 +1,17 @@
-import { Text, View, StyleSheet } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import { UserCard } from "../../components/UserCard";
+import { PostCard } from "../../components/PostCard";
 
-export const PostsScreen = ({ children }) => {
+export const PostsScreen = () => {
   return (
-    <View style={styles.container}>
-      <UserCard />
-      {children}
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <UserCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </View>
+    </ScrollView>
   );
 };
 

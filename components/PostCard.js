@@ -1,78 +1,78 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { Comments } from "./Comments/Comments";
+import { Location } from "./Location/Location";
+
+import testPicture from "../assets/images/forest.jpg";
+const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export const PostCard = ({
-  avatar = null,
-  login = "Natali Romanova",
-  email = "email@example.com",
+  picture = DEFAULT_IMAGE,
+  title = "Ліс",
+  commentsCount = 0,
+  location = "Ukraine",
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.cardContainer}>
       <View style={styles.imageContainer}>
-        {avatar && (
+        {picture && (
           <Image
             style={styles.image}
             source={{
-              uri: avatar,
+              uri: DEFAULT_IMAGE,
             }}
           />
         )}
       </View>
-      <Text style={styles.textDescription}>{description}</Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.textLogin}>{login}</Text>
-        <Text style={styles.textEmail}>{email}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <View style={styles.container}>
+        <Comments commentsCount={commentsCount} />
+        <Location location={location} />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  cardContainer: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
     gap: 8,
   },
   imageContainer: {
-    position: "relative",
     backgroundColor: "#F6F6F6",
-    width: 60,
-    height: 60,
-    borderRadius: 16,
+    width: "100%",
+    height: Math.floor((Dimensions.get("window").width - 32) / 1.43),
+    borderRadius: 8,
   },
   image: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-    borderRadius: 16,
+    borderRadius: 8,
   },
-  imageAdd: {
-    position: "absolute",
-    right: -12,
-    bottom: 14,
-    width: 25,
-    height: 25,
+  title: {
+    fontFamily: "Roboto-Medium",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#212121",
   },
-  textContainer: {
+  container: {
     display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     gap: 2,
   },
-  textDescription: {
+  iconContainer: {
+    width: 24,
+    height: 24,
+  },
+  textComment: {
     fontFamily: "Roboto-Bold",
     fontWeight: 700,
     fontSize: 13,
     lineHeight: 15,
     color: "#212121",
   },
-  textLogin: {
-    fontFamily: "Roboto-Bold",
-    fontWeight: 700,
-    fontSize: 13,
-    lineHeight: 15,
-    color: "#212121",
-  },
-  textEmail: {
+  textLocation: {
     fontFamily: "Roboto-Regular",
     fontSize: 11,
     lineHeight: 13,
