@@ -8,7 +8,7 @@ export const CommentCard = ({
   avatar = DEFAULT_IMAGE,
   comment = "Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!",
   date = new Date(),
-  index = 1,
+  index = 0,
 }) => {
   const isEvenNumber = !Boolean(index % 2);
 

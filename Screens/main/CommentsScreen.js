@@ -8,10 +8,10 @@ export const CommentsScreen = () => {
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <View style={styles.commentContainer}>
-          <CardPicture index={1} />
+          <CardPicture index={0} />
+          <CommentCard index={1} />
           <CommentCard index={2} />
           <CommentCard index={3} />
-          <CommentCard index={4} />
         </View>
         <InputCreateComment />
       </View>
