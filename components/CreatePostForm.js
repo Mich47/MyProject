@@ -11,8 +11,9 @@ import { ICONS_MAP, getIcon } from "./Icons/Icons";
 import { Camera } from "./Camera";
 import { InputCreatePost } from "./InputCreatePost";
 
-import testPicture from "../assets/images/forest.jpg";
 import { CardPicture } from "./CardPicture";
+
+import testPicture from "../assets/images/forest.jpg";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export function CreatePostForm({ picture = null }) {

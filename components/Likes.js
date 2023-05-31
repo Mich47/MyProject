@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import { ICONS_MAP, getIcon } from "./Icons/Icons";
 
-export const Comments = ({ commentsCount = 0 }) => {
-  const icon = commentsCount > 0 ? ICONS_MAP.message : ICONS_MAP.messageLight;
+export const Likes = ({ likesCount = 0 }) => {
+  const icon = likesCount > 0 ? ICONS_MAP.thumbsUp : ICONS_MAP.thumbsUpLight;
   return (
     <View style={styles.container}>
       {getIcon(icon)}
-      <Text style={styles.text}>{commentsCount}</Text>
+      <Text style={styles.text}>{likesCount}</Text>
     </View>
   );
 };

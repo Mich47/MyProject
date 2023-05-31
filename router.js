@@ -6,12 +6,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PostsScreen } from "./Screens/main/PostsScreen";
 import { CreatePostsScreen } from "./Screens/main/CreatePostsScreen";
 import { ProfileScreen } from "./Screens/main/ProfileScreen";
-import { TouchableOpacity, Dimensions } from "react-native";
+import { View, TouchableOpacity, Dimensions } from "react-native";
 
 import { ICONS_MAP, getIcon } from "./components/Icons/Icons";
 import { useState } from "react";
 import { CommentsScreen } from "./Screens/main/CommentsScreen";
 import { MapScreen } from "./Screens/main/MapScreen";
+import { LogoutButton } from "./components/LogoutButton";
 
 export function Routes({ isAuth }) {
   const Tab = createBottomTabNavigator();
@@ -33,21 +34,16 @@ export function Routes({ isAuth }) {
     setIsUserTabActive(false);
   };
 
-  const headerRightBtn = (navigation) => (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => {
-        console.log("logout");
-        //   navigation.navigate();
-      }}
+  const headerRightBtn = () => (
+    <View
       style={{
         position: "absolute",
-        bottom: 14,
-        paddingHorizontal: 16,
+        right: 8,
+        bottom: 6,
       }}
     >
-      {getIcon(ICONS_MAP.logOut)}
-    </TouchableOpacity>
+      <LogoutButton />
+    </View>
   );
 
   const headerLeftBtn = (navigation) => (
@@ -201,7 +197,7 @@ export function Routes({ isAuth }) {
       <AuthStack.Screen
         options={{ headerShown: false }}
         name="Login"
-        component={() => <LoginScreen />}
+        component={LoginScreen}
       />
       <AuthStack.Screen
         options={{ headerShown: false }}

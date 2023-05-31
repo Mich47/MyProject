@@ -41,15 +41,7 @@ export default function RegistrationScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
   form: {
-    // position: "absolute",
-    // left: 0,
-    // right: 0,
-    // bottom: 0,
     width: Dimensions.get("window").width,
     height: "auto",
     backgroundColor: "#FFFFFF",
@@ -59,7 +51,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 32,
     paddingBottom: 78,
     gap: 32,
   },

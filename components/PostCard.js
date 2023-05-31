@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Comments } from "./Comments";
+import { Likes } from "./Likes";
 import { Location } from "./Location";
 
 import testPicture from "../assets/images/forest.jpg";
@@ -18,6 +19,7 @@ export const PostCard = ({
   picture = DEFAULT_IMAGE,
   title = "Ліс",
   commentsCount = 1,
+  likesCount = 1,
   location = "Ukraine",
 }) => {
   return (
@@ -25,12 +27,22 @@ export const PostCard = ({
       <CardPicture picture={picture} />
       <Text style={styles.title}>{title}</Text>
       <View style={styles.container}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate("Comments")}
-        >
-          <Comments commentsCount={commentsCount} />
-        </TouchableOpacity>
+        <View style={{ ...styles.container, gap: 24 }}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("Comments")}
+          >
+            <Comments commentsCount={commentsCount} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              console.log("toggleLike");
+            }}
+          >
+            <Likes likesCount={likesCount} />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           activeOpacity={0.8}

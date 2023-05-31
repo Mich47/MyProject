@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { InputPassword } from "../components/InputPassword";
 import { Input } from "../components/Input";
 import { useNavigation } from "@react-navigation/native";
+import { Avatar } from "./Avatar";
 
 export function RegistrationForm() {
   const [avatar, setAvatar] = useState("");
@@ -21,30 +22,7 @@ export function RegistrationForm() {
 
   return (
     <>
-      <View style={styles.imageContainer}>
-        {avatar ? (
-          <>
-            <Image
-              style={styles.image}
-              source={{
-                uri: avatar,
-              }}
-            />
-            <Image
-              style={{
-                ...styles.imageAdd,
-                ...{ transform: [{ rotate: "45deg" }] },
-              }}
-              source={require("../assets/images/remove.png")}
-            />
-          </>
-        ) : (
-          <Image
-            style={styles.imageAdd}
-            source={require("../assets/images/add.png")}
-          />
-        )}
-      </View>
+      <Avatar avatar={avatar} />
       <Text style={styles.title}>Реєстрація</Text>
       <View style={styles.container}>
         <Input
@@ -84,27 +62,6 @@ export function RegistrationForm() {
 }
 
 const styles = StyleSheet.create({
-  imageContainer: {
-    position: "relative",
-    marginTop: -76,
-    backgroundColor: "#F6F6F6",
-    width: 120,
-    height: 120,
-    borderRadius: 16,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    borderRadius: 16,
-  },
-  imageAdd: {
-    position: "absolute",
-    right: -12,
-    bottom: 14,
-    width: 25,
-    height: 25,
-  },
   title: {
     fontFamily: "Roboto-Medium",
     fontWeight: 500,
