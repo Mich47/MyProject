@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   StyleSheet,
-  TextInput,
   View,
   Text,
   Image,
@@ -9,22 +8,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { ICONS_MAP, getIcon } from "./Icons/Icons";
-import testPicture from "../assets/images/forest.jpg";
 import { Camera } from "./Camera";
+import { InputCreatePost } from "./InputCreatePost";
+
+import testPicture from "../assets/images/forest.jpg";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export function CreatePostForm({ picture = null }) {
-  const [isNameFocus, setIsNameFocus] = useState(false);
-  const [isLocationFocus, setIsLocationFocus] = useState(false);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
 
   const isPicture = Boolean(picture);
-
-  const inputFocusStyles = {
-    borderColor: "#FF6C00",
-    backgroundColor: "#FFFFFF",
-  };
+  const isDisabled = name === "" || location === "";
 
   const handleSubmit = () => {
     console.log("FormData:", { name, location });
@@ -32,16 +27,14 @@ export function CreatePostForm({ picture = null }) {
     setLocation("");
   };
 
+  const handleClear = () => {
+    setName("");
+    setLocation("");
+  };
+
   return (
-    <View
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        gap: 50,
-        height: "100%",
-      }}
-    >
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.form}>
         <View style={styles.uploadPictureContainer}>
           <View style={styles.pictureContainer}>
             {isPicture && (
@@ -54,73 +47,46 @@ export function CreatePostForm({ picture = null }) {
             )}
             <Camera isPicture={isPicture} />
           </View>
-          <Text style={styles.text}>Завантажте фото</Text>
+          <Text style={styles.text}>
+            {isPicture ? "Редагувати фото" : "Завантажте фото"}
+          </Text>
         </View>
-        <View
-          style={{
-            display: "flex",
-            gap: 16,
-          }}
-        >
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={
-                isNameFocus
-                  ? {
-                      ...styles.input,
-                      fontFamily: "Roboto-Medium",
-                      ...inputFocusStyles,
-                    }
-                  : { ...styles.input, fontFamily: "Roboto-Medium" }
-              }
-              placeholder="Назва..."
-              value={name}
-              placeholderTextColor="#bdbdbd"
-              onChangeText={(text) => setName(text)}
-              onFocus={() => {
-                setIsNameFocus(true);
-              }}
-              onBlur={() => {
-                setIsNameFocus(false);
-              }}
-            />
-          </View>
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={
-                isLocationFocus
-                  ? { ...styles.input, paddingLeft: 28, ...inputFocusStyles }
-                  : { ...styles.input, paddingLeft: 28 }
-              }
-              placeholder="Місцевість..."
-              value={location}
-              placeholderTextColor="#bdbdbd"
-              onChangeText={(text) => setLocation(text)}
-              onFocus={() => {
-                setIsLocationFocus(true);
-              }}
-              onBlur={() => {
-                setIsLocationFocus(false);
-              }}
-            />
-            <View style={styles.iconContainer}>
-              {getIcon(ICONS_MAP.mapPin)}
-            </View>
-          </View>
-        </View>
+        <InputCreatePost
+          name={name}
+          setName={setName}
+          location={location}
+          setLocation={setLocation}
+        />
+
         <View>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={styles.buttonSubmit}
+            style={{
+              ...styles.buttonSubmit,
+              backgroundColor: isDisabled ? "#F6F6F6" : "#FF6C00",
+            }}
             onPress={handleSubmit}
+            disabled={isDisabled}
           >
-            <Text style={styles.buttonText}>Опублікувати</Text>
+            <Text
+              style={{
+                ...styles.buttonText,
+                color: isDisabled ? "#BDBDBD" : "#FFFFFF",
+              }}
+            >
+              Опублікувати
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
+
       <View style={styles.trashContainer}>
-        <TouchableOpacity activeOpacity={0.8} style={styles.trash}>
+        <TouchableOpacity
+          onPress={handleClear}
+          activeOpacity={0.8}
+          style={styles.trash}
+        >
           {getIcon(ICONS_MAP.trash)}
         </TouchableOpacity>
       </View>
@@ -130,22 +96,27 @@ export function CreatePostForm({ picture = null }) {
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: Dimensions.get("window").height - 80,
     paddingHorizontal: 16,
-    paddingVertical: 32,
+    paddingTop: 32,
+    paddingBottom: 16,
+  },
+  form: {
     display: "flex",
     flexDirection: "column",
     gap: 32,
   },
   uploadPictureContainer: {
-    width: "100%",
-    height: Math.floor((Dimensions.get("window").width - 32) / 1.43),
     display: "flex",
     gap: 8,
   },
   pictureContainer: {
     backgroundColor: "#F6F6F6",
     width: "100%",
-    height: "100%",
+    height: Math.floor((Dimensions.get("window").width - 32) / 1.43),
     borderRadius: 8,
     position: "relative",
   },
@@ -161,27 +132,10 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#BDBDBD",
   },
-  inputContainer: {
-    width: "100%",
-  },
-  input: {
-    fontFamily: "Roboto-Regular",
-    borderBottomWidth: 1,
-    color: "#212121",
-    borderColor: "#E8E8E8",
-    paddingVertical: 16,
-    fontSize: 16,
-    lineHeight: 19,
-  },
-  iconContainer: {
-    position: "absolute",
-    top: 18,
-    left: 0,
-  },
   buttonSubmit: {
     width: "100%",
     padding: 16,
-    backgroundColor: "#FF6C00",
+    backgroundColor: "#F6F6F6",
     borderRadius: 50,
   },
   buttonText: {
@@ -189,12 +143,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
-    color: "#FFFFFF",
+    color: "#BDBDBD",
   },
   trashContainer: {
     width: "100%",
     display: "flex",
     alignItems: "center",
+    paddingTop: 8,
   },
   trash: {
     display: "flex",

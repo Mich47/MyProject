@@ -111,7 +111,7 @@ export function Routes({ isAuth }) {
               display: "none",
             },
             tabBarItemStyle: {
-              width: 70,
+              maxWidth: 70,
               height: 40,
               backgroundColor: "#FF6C00",
               borderRadius: 20,
