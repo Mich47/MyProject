@@ -12,6 +12,7 @@ import { Camera } from "./Camera";
 import { InputCreatePost } from "./InputCreatePost";
 
 import testPicture from "../assets/images/forest.jpg";
+import { CardPicture } from "./CardPicture";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export function CreatePostForm({ picture = null }) {
@@ -37,14 +38,7 @@ export function CreatePostForm({ picture = null }) {
       <View style={styles.form}>
         <View style={styles.uploadPictureContainer}>
           <View style={styles.pictureContainer}>
-            {isPicture && (
-              <Image
-                style={styles.picture}
-                source={{
-                  uri: picture,
-                }}
-              />
-            )}
+            <CardPicture picture={picture} />
             <Camera isPicture={isPicture} />
           </View>
           <Text style={styles.text}>
@@ -99,10 +93,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: Dimensions.get("window").height - 80,
+    minHeight: Dimensions.get("window").height - 96,
     paddingHorizontal: 16,
     paddingTop: 32,
     paddingBottom: 16,
+    gap: 64,
   },
   form: {
     display: "flex",
@@ -114,17 +109,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   pictureContainer: {
-    backgroundColor: "#F6F6F6",
-    width: "100%",
-    height: Math.floor((Dimensions.get("window").width - 32) / 1.43),
-    borderRadius: 8,
     position: "relative",
-  },
-  picture: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    borderRadius: 8,
   },
   text: {
     fontFamily: "Roboto-Regular",

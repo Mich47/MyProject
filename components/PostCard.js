@@ -1,11 +1,20 @@
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Comments } from "./Comments";
 import { Location } from "./Location";
 
 import testPicture from "../assets/images/forest.jpg";
+import { CardPicture } from "./CardPicture";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export const PostCard = ({
+  navigation,
   picture = DEFAULT_IMAGE,
   title = "Ліс",
   commentsCount = 1,
@@ -13,19 +22,15 @@ export const PostCard = ({
 }) => {
   return (
     <View style={styles.cardContainer}>
-      <View style={styles.imageContainer}>
-        {picture && (
-          <Image
-            style={styles.image}
-            source={{
-              uri: DEFAULT_IMAGE,
-            }}
-          />
-        )}
-      </View>
+      <CardPicture picture={picture} />
       <Text style={styles.title}>{title}</Text>
       <View style={styles.container}>
-        <Comments commentsCount={commentsCount} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate("Comments")}
+        >
+          <Comments commentsCount={commentsCount} />
+        </TouchableOpacity>
         <Location location={location} />
       </View>
     </View>

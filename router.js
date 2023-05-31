@@ -10,6 +10,7 @@ import { TouchableOpacity, Dimensions } from "react-native";
 
 import { ICONS_MAP, getIcon } from "./components/Icons/Icons";
 import { useState } from "react";
+import { CommentsScreen } from "./Screens/main/CommentsScreen";
 
 export function Routes({ isAuth }) {
   const Tab = createBottomTabNavigator();
@@ -17,23 +18,58 @@ export function Routes({ isAuth }) {
 
   const [isUserTabActive, setIsUserTabActive] = useState(false);
 
+  const toggleTabItems = (e) => {
+    const { index } = e.data.state;
+
+    if (index === 2 && isUserTabActive) {
+      setIsUserTabActive(true);
+      return;
+    }
+    if (index === 2) {
+      setIsUserTabActive(!isUserTabActive);
+      return;
+    }
+    setIsUserTabActive(false);
+  };
+
+  const headerRightBtn = (navigation) => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        console.log("logout");
+        //   navigation.navigate();
+      }}
+      style={{
+        position: "absolute",
+        bottom: 14,
+        paddingHorizontal: 16,
+      }}
+    >
+      {getIcon(ICONS_MAP.logOut)}
+    </TouchableOpacity>
+  );
+
+  const headerLeftBtn = (navigation) => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        navigation.goBack();
+      }}
+      style={{
+        position: "absolute",
+        bottom: 14,
+        paddingHorizontal: 16,
+      }}
+    >
+      {getIcon(ICONS_MAP.arrowLeft)}
+    </TouchableOpacity>
+  );
+
   return isAuth ? (
     <Tab.Navigator
       initialRouteName="Posts"
       screenListeners={{
-        state: (e) => {
-          const { index } = e.data.state;
-
-          if (index === 2 && isUserTabActive) {
-            setIsUserTabActive(true);
-            return;
-          }
-          if (index === 2) {
-            setIsUserTabActive(!isUserTabActive);
-            return;
-          }
-          setIsUserTabActive(false);
-        },
+        state: toggleTabItems,
       }}
       screenOptions={{
         tabBarShowLabel: false,
@@ -68,22 +104,7 @@ export function Routes({ isAuth }) {
             tabBarIcon: () => {
               return getIcon(ICONS_MAP.grid);
             },
-            headerRight: () => (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  console.log("logout");
-                  //   navigation.navigate();
-                }}
-                style={{
-                  position: "absolute",
-                  bottom: 14,
-                  paddingHorizontal: 16,
-                }}
-              >
-                {getIcon(ICONS_MAP.logOut)}
-              </TouchableOpacity>
-            ),
+            headerRight: () => headerRightBtn(navigation),
           };
         }}
       />
@@ -117,21 +138,7 @@ export function Routes({ isAuth }) {
               borderRadius: 20,
             },
 
-            headerLeft: () => (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  navigation.goBack();
-                }}
-                style={{
-                  position: "absolute",
-                  bottom: 14,
-                  paddingHorizontal: 16,
-                }}
-              >
-                {getIcon(ICONS_MAP.arrowLeft)}
-              </TouchableOpacity>
-            ),
+            headerLeft: () => headerLeftBtn(navigation),
           };
         }}
       />
@@ -151,6 +158,26 @@ export function Routes({ isAuth }) {
           tabBarIcon: () => {
             return getIcon(isUserTabActive ? ICONS_MAP.add : ICONS_MAP.user);
           },
+        }}
+      />
+      <Tab.Screen
+        name="Comments"
+        component={CommentsScreen}
+        options={({ navigation }) => {
+          return {
+            headerTitle: "Коментарі",
+            tabBarStyle: {
+              display: "none",
+            },
+            tabBarItemStyle: {
+              display: "none",
+            },
+            tabBarIcon: () => {
+              return getIcon(ICONS_MAP.thumbsUp);
+            },
+
+            headerLeft: () => headerLeftBtn(navigation),
+          };
         }}
       />
     </Tab.Navigator>

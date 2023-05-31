@@ -1,15 +1,15 @@
-import { ScrollView, View, StyleSheet, Dimensions } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import { UserCard } from "../../components/UserCard";
 import { PostCard } from "../../components/PostCard";
 
-export const PostsScreen = () => {
+export const PostsScreen = ({ navigation }) => {
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <UserCard />
-        <PostCard />
-        {/* <PostCard />
-        <PostCard /> */}
+        <PostCard navigation={navigation} />
+        <PostCard navigation={navigation} />
+        <PostCard navigation={navigation} />
       </View>
     </ScrollView>
   );
