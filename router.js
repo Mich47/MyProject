@@ -11,6 +11,7 @@ import { TouchableOpacity, Dimensions } from "react-native";
 import { ICONS_MAP, getIcon } from "./components/Icons/Icons";
 import { useState } from "react";
 import { CommentsScreen } from "./Screens/main/CommentsScreen";
+import { MapScreen } from "./Screens/main/MapScreen";
 
 export function Routes({ isAuth }) {
   const Tab = createBottomTabNavigator();
@@ -172,8 +173,22 @@ export function Routes({ isAuth }) {
             tabBarItemStyle: {
               display: "none",
             },
-            tabBarIcon: () => {
-              return getIcon(ICONS_MAP.thumbsUp);
+
+            headerLeft: () => headerLeftBtn(navigation),
+          };
+        }}
+      />
+      <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={({ navigation }) => {
+          return {
+            headerTitle: "Карта",
+            tabBarStyle: {
+              display: "none",
+            },
+            tabBarItemStyle: {
+              display: "none",
             },
 
             headerLeft: () => headerLeftBtn(navigation),

@@ -31,7 +31,13 @@ export const PostCard = ({
         >
           <Comments commentsCount={commentsCount} />
         </TouchableOpacity>
-        <Location location={location} />
+
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate("Map")}
+        >
+          <Location location={location} />
+        </TouchableOpacity>
       </View>
     </View>
   );
