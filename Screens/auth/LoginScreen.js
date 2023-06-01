@@ -4,6 +4,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import { LoginForm } from "../../components/LoginForm";
@@ -27,27 +28,25 @@ export default function LoginScreen() {
   }, []);
 
   return (
-    <MainContainer>
-      <KeyboardAvoidingView
-        style={{
-          ...styles.form,
-          paddingTop: 32,
-          paddingBottom: 144,
-          marginBottom: isKeyboardShow ? -241 : 0,
-        }}
-      >
-        <LoginForm />
-      </KeyboardAvoidingView>
-    </MainContainer>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <MainContainer>
+        <KeyboardAvoidingView
+          style={{
+            ...styles.form,
+            paddingTop: 32,
+            paddingBottom: 144,
+            marginBottom: isKeyboardShow ? -241 : 0,
+          }}
+        >
+          <LoginForm />
+        </KeyboardAvoidingView>
+      </MainContainer>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   form: {
-    // position: "absolute",
-    // left: 0,
-    // right: 0,
-    // bottom: 0,
     width: Dimensions.get("window").width,
     height: "auto",
     backgroundColor: "#FFFFFF",

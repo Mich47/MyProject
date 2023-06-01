@@ -4,6 +4,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import { RegistrationForm } from "../../components/RegistrationForm";
@@ -27,16 +28,18 @@ export default function RegistrationScreen() {
   }, []);
 
   return (
-    <MainContainer>
-      <KeyboardAvoidingView
-        style={{
-          ...styles.form,
-          marginBottom: isKeyboardShow ? -175 : 0,
-        }}
-      >
-        <RegistrationForm />
-      </KeyboardAvoidingView>
-    </MainContainer>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <MainContainer>
+        <KeyboardAvoidingView
+          style={{
+            ...styles.form,
+            marginBottom: isKeyboardShow ? -175 : 0,
+          }}
+        >
+          <RegistrationForm />
+        </KeyboardAvoidingView>
+      </MainContainer>
+    </TouchableWithoutFeedback>
   );
 }
 
