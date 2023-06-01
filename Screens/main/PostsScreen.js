@@ -2,7 +2,8 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import { UserCard } from "../../components/UserCard";
 import { PostCard } from "../../components/PostCard";
 
-export const PostsScreen = ({ navigation }) => {
+export const PostsScreen = ({ navigation, route }) => {
+  console.log("route ", route.params);
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>

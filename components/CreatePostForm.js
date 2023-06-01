@@ -1,37 +1,89 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  Image,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { Camera, CameraType } from "expo-camera";
 import { ICONS_MAP, getIcon } from "./Icons/Icons";
-import { Camera } from "./Camera";
 import { InputCreatePost } from "./InputCreatePost";
 
+import { CameraIcon } from "./CameraIcon";
 import { CardPicture } from "./CardPicture";
 
-import testPicture from "../assets/images/forest.jpg";
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
-
-export function CreatePostForm({ picture = null }) {
+export function CreatePostForm({ navigation }) {
+  const [picture, setPicture] = useState("");
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
 
-  const isPicture = Boolean(picture);
-  const isDisabled = name === "" || location === "";
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [cameraRef, setCameraRef] = useState(null);
+  // const [type, setType] = useState(Camera.Constants.Type.back);
 
-  const handleSubmit = () => {
-    console.log("FormData:", { name, location });
+  const isPicture = Boolean(picture);
+  const isDisabled = picture === "" || name === "" || location === "";
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+      <View
+        style={{
+          ...styles.container,
+          height: Dimensions.get("window").height - 97,
+          paddingTop: Dimensions.get("window").height / 2 - 147,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Roboto-Medium",
+            fontSize: 17,
+            lineHeight: 30,
+            color: "#212121",
+            textAlign: "center",
+          }}
+        >
+          {"Нам потрібен ваш дозвіл, щоб показати камеру"}
+        </Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.buttonSubmit}
+          onPress={requestPermission}
+        >
+          <Text style={styles.buttonText}>Надати дозвіл</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  const handleClear = () => {
+    setPicture("");
     setName("");
     setLocation("");
   };
 
-  const handleClear = () => {
-    setName("");
-    setLocation("");
+  const handleSubmit = () => {
+    console.log("FormData:", { picture, name, location });
+    navigation.navigate("Posts", { newPost: { picture, name, location } });
+    handleClear();
+  };
+
+  const takePhoto = async () => {
+    if (cameraRef) {
+      const { uri } = await cameraRef.takePictureAsync();
+      setPicture(uri);
+      // await MediaLibrary.createAssetAsync(uri);
+    }
   };
 
   return (
@@ -39,12 +91,37 @@ export function CreatePostForm({ picture = null }) {
       <View style={styles.form}>
         <View style={styles.uploadPictureContainer}>
           <View style={styles.pictureContainer}>
-            <CardPicture picture={picture} />
-            <Camera isPicture={isPicture} />
+            {isPicture ? (
+              <CardPicture picture={picture} />
+            ) : (
+              <Camera style={styles.camera} ref={setCameraRef}></Camera>
+            )}
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.cameraBtn}
+              onPress={() => {
+                if (picture) {
+                  setPicture("");
+                  return;
+                }
+                takePhoto();
+              }}
+            >
+              <CameraIcon isPicture={picture} />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.text}>
-            {isPicture ? "Редагувати фото" : "Завантажте фото"}
-          </Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              if (picture) {
+                setPicture("");
+              }
+            }}
+          >
+            <Text style={styles.text}>
+              {picture ? "Редагувати фото" : "Завантажте фото"}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <InputCreatePost
@@ -94,7 +171,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    minHeight: Dimensions.get("window").height - 96,
+    minHeight: Dimensions.get("window").height - 97,
     paddingHorizontal: 16,
     paddingTop: 32,
     paddingBottom: 16,
@@ -111,6 +188,27 @@ const styles = StyleSheet.create({
   },
   pictureContainer: {
     position: "relative",
+    width: "100%",
+    height: Math.floor((Dimensions.get("window").width - 32) / 1.43),
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  camera: {
+    width: "100%",
+    height: "100%",
+    // borderRadius: 8,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 8,
+  },
+  cameraBtn: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -30 }, { translateY: -30 }],
   },
   text: {
     fontFamily: "Roboto-Regular",
@@ -121,7 +219,7 @@ const styles = StyleSheet.create({
   buttonSubmit: {
     width: "100%",
     padding: 16,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#FF6C00",
     borderRadius: 50,
   },
   buttonText: {
@@ -129,7 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
-    color: "#BDBDBD",
+    color: "#FFFFFF",
   },
   trashContainer: {
     width: "100%",

@@ -10,7 +10,7 @@ export const CardPicture = ({ picture = DEFAULT_IMAGE }) => {
         <Image
           style={styles.image}
           source={{
-            uri: DEFAULT_IMAGE,
+            uri: picture,
           }}
         />
       )}
