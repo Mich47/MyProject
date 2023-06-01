@@ -196,13 +196,6 @@ const styles = StyleSheet.create({
   camera: {
     width: "100%",
     height: "100%",
-    // borderRadius: 8,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    borderRadius: 8,
   },
   cameraBtn: {
     position: "absolute",
