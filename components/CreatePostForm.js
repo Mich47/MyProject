@@ -6,7 +6,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { Camera, CameraType } from "expo-camera";
+import { Camera } from "expo-camera";
+import * as Location from "expo-location";
 import { ICONS_MAP, getIcon } from "./Icons/Icons";
 import { InputCreatePost } from "./InputCreatePost";
 
@@ -15,26 +16,41 @@ import { CardPicture } from "./CardPicture";
 
 export function CreatePostForm({ navigation }) {
   const [picture, setPicture] = useState("");
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
+  const [title, setTitle] = useState("");
+  const [locationTitle, setLocationTitle] = useState("");
 
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [locationCoords, setLocationCoords] = useState(null);
+
+  const [permissionCamera, requestPermissionCamera] =
+    Camera.useCameraPermissions();
   const [cameraRef, setCameraRef] = useState(null);
-  // const [type, setType] = useState(Camera.Constants.Type.back);
 
   const isPicture = Boolean(picture);
-  const isDisabled = picture === "" || name === "" || location === "";
+  const isDisabled = picture === "" || title === "" || locationTitle === "";
 
   useEffect(() => {
-    requestPermission();
+    requestPermissionCamera();
+
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync({});
+
+      setLocationCoords({ latitude, longitude });
+    })();
   }, []);
 
-  if (!permission) {
+  if (!permissionCamera) {
     // Camera permissions are still loading
     return <View />;
   }
 
-  if (!permission.granted) {
+  if (!permissionCamera.granted) {
     // Camera permissions are not granted yet
     return (
       <View
@@ -53,7 +69,7 @@ export function CreatePostForm({ navigation }) {
             textAlign: "center",
           }}
         >
-          {"Нам потрібен ваш дозвіл, щоб показати камеру"}
+          Нам потрібен ваш дозвіл, щоб показати камеру
         </Text>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -68,13 +84,26 @@ export function CreatePostForm({ navigation }) {
 
   const handleClear = () => {
     setPicture("");
-    setName("");
-    setLocation("");
+    setTitle("");
+    setLocationTitle("");
   };
 
   const handleSubmit = () => {
-    console.log("FormData:", { picture, name, location });
-    navigation.navigate("Posts", { newPost: { picture, name, location } });
+    console.log("FormData:", {
+      picture,
+      title,
+      location: locationTitle,
+      coords: locationCoords,
+    });
+
+    navigation.navigate("Posts", {
+      newPost: {
+        picture,
+        title,
+        location: locationTitle,
+        coords: locationCoords,
+      },
+    });
     handleClear();
   };
 
@@ -82,7 +111,6 @@ export function CreatePostForm({ navigation }) {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
       setPicture(uri);
-      // await MediaLibrary.createAssetAsync(uri);
     }
   };
 
@@ -125,10 +153,10 @@ export function CreatePostForm({ navigation }) {
         </View>
 
         <InputCreatePost
-          name={name}
-          setName={setName}
-          location={location}
-          setLocation={setLocation}
+          name={title}
+          setName={setTitle}
+          location={locationTitle}
+          setLocation={setLocationTitle}
         />
 
         <View>

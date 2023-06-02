@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -9,18 +8,16 @@ import {
 import { Comments } from "./Comments";
 import { Likes } from "./Likes";
 import { Location } from "./Location";
-
-import testPicture from "../assets/images/forest.jpg";
 import { CardPicture } from "./CardPicture";
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
 export const PostCard = ({
   navigation,
-  picture = DEFAULT_IMAGE,
-  title = "Ліс",
-  commentsCount = 1,
-  likesCount = 1,
+  picture = "",
+  title = "",
+  commentsCount = 0,
+  likesCount = 0,
   location = "Ukraine",
+  coords = null,
 }) => {
   return (
     <View style={styles.cardContainer}>
@@ -46,7 +43,7 @@ export const PostCard = ({
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("Map")}
+          onPress={() => navigation.navigate("Map", { coords, title })}
         >
           <Location location={location} />
         </TouchableOpacity>

@@ -1,21 +1,54 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
-export const MapScreen = () => {
+const defaultRegion = {
+  latitude: 49.13164,
+  longitude: 31.04277,
+  latitudeDelta: 7.0,
+  longitudeDelta: 7.0,
+};
+
+export const MapScreen = ({ route }) => {
+  const {
+    latitude,
+    longitude,
+    latitudeDelta = 0.09,
+    longitudeDelta = 0.04,
+  } = route.params?.coords ?? defaultRegion;
+
+  const { title = "" } = route.params;
+
   return (
-    <ScrollView style={{ backgroundColor: "#fff" }}>
-      <View style={styles.container}>
-        <Text>MapScreen</Text>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        initialRegion={defaultRegion}
+        region={{
+          latitude,
+          longitude,
+          latitudeDelta,
+          longitudeDelta,
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude,
+            longitude,
+          }}
+          title={title}
+        />
+      </MapView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 32,
-    display: "flex",
-    flexDirection: "column",
-    gap: 32,
+    flex: 1,
+  },
+  map: {
+    width: "100%",
+    height: "100%",
   },
 });
