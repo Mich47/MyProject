@@ -3,6 +3,9 @@ import { useFonts } from "expo-font";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { Routes } from "./router";
+import { Provider } from "react-redux";
+import { persistor, store } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,8 +19,12 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Routes isAuth={true} />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Routes isAuth={false} />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }

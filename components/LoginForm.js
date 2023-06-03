@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { InputPassword } from "../components/InputPassword";
 import { Input } from "../components/Input";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { signInUser } from "../redux/auth/auth.operations";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -10,8 +12,11 @@ export function LoginForm() {
 
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     console.log("FormData:", { email, password });
+    dispatch(signInUser({ email, password }));
     setEmail("");
     setPassword("");
   };

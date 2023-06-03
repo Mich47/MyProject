@@ -4,6 +4,8 @@ import { InputPassword } from "../components/InputPassword";
 import { Input } from "../components/Input";
 import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "./Avatar";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../redux/auth/auth.operations";
 
 export function RegistrationForm() {
   const [avatar, setAvatar] = useState("");
@@ -13,8 +15,11 @@ export function RegistrationForm() {
 
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     console.log("FormData:", { avatar, login, email, password });
+    dispatch(signUpUser({ avatar, login, email, password }));
     setLogin("");
     setEmail("");
     setPassword("");
