@@ -1,10 +1,10 @@
 import { View, Text, Image, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/auth/auth.selectors";
 
-export const UserCard = ({
-  avatar = null,
-  login = "Natali Romanova",
-  email = "email@example.com",
-}) => {
+export const UserCard = () => {
+  const { avatar, login, email } = useSelector(selectUser);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>

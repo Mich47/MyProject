@@ -17,12 +17,16 @@ export function RegistrationForm() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    console.log("FormData:", { avatar, login, email, password });
-    dispatch(signUpUser({ avatar, login, email, password }));
-    setLogin("");
-    setEmail("");
-    setPassword("");
+  const handleSubmit = async () => {
+    try {
+      await dispatch(signUpUser({ avatar, login, email, password })).unwrap();
+      
+      setLogin("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log("Error ", error);
+    }
   };
 
   return (

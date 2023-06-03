@@ -11,13 +11,12 @@ import { PostCard } from "../../components/PostCard";
 
 import { Avatar } from "../../components/Avatar";
 
-import testPicture from "../../assets/images/forest.jpg";
 import { LogoutButton } from "../../components/LogoutButton";
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/auth.selectors";
 
 export const ProfileScreen = ({ navigation }) => {
-  const avatar = DEFAULT_IMAGE;
-  const login = "Natali Romanova";
+  const { avatar, login } = useSelector(selectUser);
 
   return (
     <MainContainer>

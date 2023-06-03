@@ -74,7 +74,7 @@ export function CreatePostForm({ navigation }) {
         <TouchableOpacity
           activeOpacity={0.8}
           style={styles.buttonSubmit}
-          onPress={requestPermission}
+          onPress={requestPermissionCamera}
         >
           <Text style={styles.buttonText}>Надати дозвіл</Text>
         </TouchableOpacity>

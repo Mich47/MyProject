@@ -14,11 +14,15 @@ export function LoginForm() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    console.log("FormData:", { email, password });
-    dispatch(signInUser({ email, password }));
-    setEmail("");
-    setPassword("");
+  const handleSubmit = async () => {
+    try {
+      await dispatch(signInUser({ email, password })).unwrap();
+
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log("Error ", error);
+    }
   };
 
   return (
