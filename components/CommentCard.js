@@ -4,12 +4,9 @@ import dateFormat from "dateformat";
 import testPicture from "../assets/images/forest.jpg";
 const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
 
-export const CommentCard = ({
-  avatar = DEFAULT_IMAGE,
-  comment = "Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!",
-  date = new Date(),
-  index = 0,
-}) => {
+export const CommentCard = ({ comment, index = 0 }) => {
+  const { avatar = DEFAULT_IMAGE, comment: commentText, createdAt } = comment;
+
   const isEvenNumber = !Boolean(index % 2);
 
   return (
@@ -34,7 +31,7 @@ export const CommentCard = ({
           borderTopRightRadius: isEvenNumber ? 0 : 6,
         }}
       >
-        <Text style={styles.comment}>{comment}</Text>
+        <Text style={styles.comment}>{commentText}</Text>
         <View
           style={{
             ...styles.dateContainer,
@@ -42,7 +39,7 @@ export const CommentCard = ({
           }}
         >
           <Text style={styles.date}>
-            {dateFormat(date, "dd mmmm, yyyy | HH:MM")}
+            {dateFormat(createdAt, "dd mmmm, yyyy | HH:MM")}
           </Text>
         </View>
       </View>
@@ -74,6 +71,7 @@ const styles = StyleSheet.create({
     padding: 16,
     flexShrink: 1,
     display: "flex",
+    width: "100%",
     gap: 8,
     backgroundColor: "rgba(0, 0, 0, 0.03)",
     borderRadius: 6,

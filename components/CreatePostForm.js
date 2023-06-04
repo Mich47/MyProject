@@ -13,6 +13,9 @@ import { InputCreatePost } from "./InputCreatePost";
 
 import { CameraIcon } from "./CameraIcon";
 import { CardPicture } from "./CardPicture";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser } from "../redux/auth/auth.selectors";
+import { createPost } from "../redux/posts/posts.operations";
 
 export function CreatePostForm({ navigation }) {
   const [picture, setPicture] = useState("");
@@ -20,6 +23,10 @@ export function CreatePostForm({ navigation }) {
   const [locationTitle, setLocationTitle] = useState("");
 
   const [locationCoords, setLocationCoords] = useState(null);
+
+  const { login, userId } = useSelector(selectUser);
+
+  const dispatch = useDispatch();
 
   const [permissionCamera, requestPermissionCamera] =
     Camera.useCameraPermissions();
@@ -88,22 +95,20 @@ export function CreatePostForm({ navigation }) {
     setLocationTitle("");
   };
 
-  const handleSubmit = () => {
-    console.log("FormData:", {
-      picture,
-      title,
-      location: locationTitle,
-      coords: locationCoords,
-    });
-
-    navigation.navigate("Posts", {
-      newPost: {
+  const handleSubmit = async () => {
+    await dispatch(
+      createPost({
         picture,
         title,
         location: locationTitle,
         coords: locationCoords,
-      },
-    });
+        login,
+        userId,
+      })
+    ).unwrap();
+
+    navigation.navigate("Posts");
+
     handleClear();
   };
 

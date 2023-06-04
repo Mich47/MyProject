@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { StyleSheet, TextInput, View, TouchableOpacity } from "react-native";
 import { ICONS_MAP, getIcon } from "./Icons/Icons";
+import { useDispatch, useSelector } from "react-redux";
+import { createComment } from "../redux/posts/posts.operations";
+import { selectUser } from "../redux/auth/auth.selectors";
 
-export function InputCreateComment() {
+export function InputCreateComment({ postId }) {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [comment, setComment] = useState("");
+
+  const { login, avatar, userId } = useSelector(selectUser);
+
+  const dispatch = useDispatch();
 
   const inputFocusStyles = {
     borderColor: "#FF6C00",
@@ -12,7 +19,8 @@ export function InputCreateComment() {
   };
 
   const handleSubmit = () => {
-    console.log("Comment", comment);
+    dispatch(createComment({ postId, comment, login, avatar, userId }));
+
     setComment("");
   };
 

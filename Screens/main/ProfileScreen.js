@@ -1,22 +1,30 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { View, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
 import { MainContainer } from "../../components/MainContainer";
 import { PostCard } from "../../components/PostCard";
 
 import { Avatar } from "../../components/Avatar";
 
 import { LogoutButton } from "../../components/LogoutButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/auth.selectors";
+import { useEffect } from "react";
+import {
+  selectPostsStatus,
+  selectUserPosts,
+} from "../../redux/posts/posts.selectors";
+import { getUserPosts } from "../../redux/posts/posts.operations";
+import { STATUS } from "../../constants/status.constants";
 
 export const ProfileScreen = ({ navigation }) => {
-  const { avatar, login } = useSelector(selectUser);
+  const { avatar, login, userId } = useSelector(selectUser);
+  const userPosts = useSelector(selectUserPosts);
+  const status = useSelector(selectPostsStatus);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserPosts(userId));
+  }, [userId, navigation]);
 
   return (
     <MainContainer>
@@ -27,9 +35,10 @@ export const ProfileScreen = ({ navigation }) => {
           </View>
           <Avatar avatar={avatar} />
           <Text style={styles.title}>{login}</Text>
-          <PostCard navigation={navigation} />
-          <PostCard navigation={navigation} />
-          <PostCard navigation={navigation} />
+          {status !== STATUS.loading &&
+            userPosts.map((post) => (
+              <PostCard key={post.id} {...post} navigation={navigation} />
+            ))}
         </View>
       </ScrollView>
     </MainContainer>

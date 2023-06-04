@@ -1,25 +1,26 @@
 import { ScrollView, View, StyleSheet } from "react-native";
 import { UserCard } from "../../components/UserCard";
 import { PostCard } from "../../components/PostCard";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPosts } from "../../redux/posts/posts.selectors";
+import { getPosts } from "../../redux/posts/posts.operations";
 
-export const PostsScreen = ({ navigation, route }) => {
-  const [posts, setPosts] = useState([]);
+export const PostsScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
 
-  const newPost = route.params?.newPost ?? null;
+  const posts = useSelector(selectPosts);
 
   useEffect(() => {
-    if (newPost) {
-      setPosts((prev) => [...prev, newPost]);
-    }
-  }, [newPost]);
+    dispatch(getPosts());
+  }, [navigation]);
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <UserCard />
-        {posts.map((post, index) => (
-          <PostCard key={index} {...post} navigation={navigation} />
+        {posts.map((post) => (
+          <PostCard key={post.id} {...post} navigation={navigation} />
         ))}
       </View>
     </ScrollView>

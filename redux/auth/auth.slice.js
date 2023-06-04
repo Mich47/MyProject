@@ -12,6 +12,7 @@ const initialState = {
     avatar: "",
     login: null,
     email: null,
+    userId: null,
   },
   status: STATUS.idle,
   isLoggedIn: false,

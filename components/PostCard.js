@@ -12,12 +12,13 @@ import { CardPicture } from "./CardPicture";
 
 export const PostCard = ({
   navigation,
-  picture = "",
-  title = "",
-  commentsCount = 0,
-  likesCount = 0,
-  location = "Ukraine",
-  coords = null,
+  picture,
+  title,
+  commentsCount,
+  likesCount,
+  location,
+  coords,
+  id: postId,
 }) => {
   return (
     <View style={styles.cardContainer}>
@@ -27,7 +28,7 @@ export const PostCard = ({
         <View style={{ ...styles.container, gap: 24 }}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("Comments")}
+            onPress={() => navigation.navigate("Comments", { postId })}
           >
             <Comments commentsCount={commentsCount} />
           </TouchableOpacity>
