@@ -72,9 +72,7 @@ const postsSlice = createSlice({
         state.status = STATUS.loading;
       })
       .addCase(createComment.fulfilled, (state, { payload }) => {
-        // console.log("createComment payload =>", payload);
         state.comments.push(payload);
-        // state.userPosts.commentCount = payload;
         state.status = STATUS.success;
         state.error = null;
       })
