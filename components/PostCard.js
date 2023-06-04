@@ -28,7 +28,7 @@ export const PostCard = ({
         <View style={{ ...styles.container, gap: 24 }}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("Comments", { postId })}
+            onPress={() => navigation.navigate("Comments", { postId, picture })}
           >
             <Comments commentsCount={commentsCount} />
           </TouchableOpacity>

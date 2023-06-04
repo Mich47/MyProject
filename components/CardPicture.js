@@ -1,9 +1,6 @@
 import { View, Image, StyleSheet, Dimensions } from "react-native";
 
-import testPicture from "../assets/images/forest.jpg";
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
-
-export const CardPicture = ({ picture = DEFAULT_IMAGE }) => {
+export const CardPicture = ({ picture }) => {
   return (
     <View style={styles.imageContainer}>
       {picture && (

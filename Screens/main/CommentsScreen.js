@@ -12,7 +12,7 @@ import {
 import { STATUS } from "../../constants/status.constants";
 
 export const CommentsScreen = ({ route }) => {
-  const { postId } = route.params;
+  const { postId, picture } = route.params;
   const dispatch = useDispatch();
 
   const comments = useSelector(selectComments);
@@ -28,7 +28,7 @@ export const CommentsScreen = ({ route }) => {
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <View style={styles.commentContainer}>
-          <CardPicture index={0} />
+          <CardPicture index={0} picture={picture} />
           {status !== STATUS.loading &&
             comments.map((comment, index) => (
               <CommentCard key={comment.id} index={index} comment={comment} />

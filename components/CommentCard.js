@@ -1,13 +1,10 @@
 import { View, Image, StyleSheet, Text } from "react-native";
 import dateFormat from "dateformat";
 
-import testPicture from "../assets/images/forest.jpg";
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
-
 export const CommentCard = ({ comment, index = 0 }) => {
-  const { avatar = DEFAULT_IMAGE, comment: commentText, createdAt } = comment;
+  const { avatar, comment: commentText, createdAt } = comment;
 
-  const isEvenNumber = !Boolean(index % 2);
+  const isEvenNumber = Boolean(index % 2);
 
   return (
     <View

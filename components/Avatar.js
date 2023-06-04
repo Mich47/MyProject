@@ -1,14 +1,11 @@
 import { View, Image, StyleSheet, Dimensions } from "react-native";
 
-import testPicture from "../assets/images/forest.jpg";
 import addPicture from "../assets/images/add.png";
 import removePicture from "../assets/images/remove.png";
 const ADD_PICTURE = Image.resolveAssetSource(addPicture).uri;
 const REMOVE_PICTURE = Image.resolveAssetSource(removePicture).uri;
 
-const DEFAULT_IMAGE = Image.resolveAssetSource(testPicture).uri;
-
-export const Avatar = ({ avatar = DEFAULT_IMAGE }) => {
+export const Avatar = ({ avatar }) => {
   return (
     <View style={styles.imageContainer}>
       {avatar && (
