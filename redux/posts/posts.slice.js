@@ -26,7 +26,7 @@ const postsSlice = createSlice({
 
       const userIndex = state.userPosts.findIndex(({ id }) => id === payload);
       if (userIndex >= 0) {
-        state.posts[userIndex].commentsCount += 1;
+        state.userPosts[userIndex].commentsCount += 1;
       }
     },
   },
