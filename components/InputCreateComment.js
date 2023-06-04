@@ -4,6 +4,7 @@ import { ICONS_MAP, getIcon } from "./Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../redux/posts/posts.operations";
 import { selectUser } from "../redux/auth/auth.selectors";
+import { incrementCommentsCount } from "../redux/posts/posts.slice";
 
 export function InputCreateComment({ postId }) {
   const [isInputFocus, setIsInputFocus] = useState(false);
@@ -20,6 +21,7 @@ export function InputCreateComment({ postId }) {
 
   const handleSubmit = () => {
     dispatch(createComment({ postId, comment, login, avatar, userId }));
+    dispatch(incrementCommentsCount(postId));
 
     setComment("");
   };

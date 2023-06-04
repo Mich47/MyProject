@@ -19,6 +19,17 @@ const initialState = {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {
+    incrementCommentsCount: (state, { payload }) => {
+      const index = state.posts.findIndex(({ id }) => id === payload);
+      state.posts[index].commentsCount += 1;
+
+      const userIndex = state.userPosts.findIndex(({ id }) => id === payload);
+      if (userIndex >= 0) {
+        state.posts[userIndex].commentsCount += 1;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createPost.pending, (state) => {
@@ -87,3 +98,5 @@ const postsSlice = createSlice({
 });
 
 export const postsReducer = postsSlice.reducer;
+
+export const { incrementCommentsCount } = postsSlice.actions;
