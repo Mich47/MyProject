@@ -42,8 +42,8 @@ export const createPost = createAsyncThunk(
         coords,
         author: login,
         authorId: userId,
-        commentsCount,
-        likesCount,
+        commentsCount: 0,
+        likesCount: 0,
         date: new Date().toISOString(),
       };
 

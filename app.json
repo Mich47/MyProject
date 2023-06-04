@@ -11,8 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -25,10 +26,16 @@
         "googleMaps": {
           "apiKey": "AIzaSyA6p0pvIK63LxGsv5IH13wb6kOM8f8GpPw"
         }
-      }
+      },
+      "package": "com.mich47.MyProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "82eddbe0-f97e-490f-81f2-201d740fd0bd"
+      }
     }
   }
 }
