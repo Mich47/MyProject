@@ -37,7 +37,7 @@ const postsSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, { payload }) => {
         state.posts.push(payload);
-        state.userIndex.push(payload);
+        state.userPosts.push(payload);
         state.status = STATUS.success;
         state.error = null;
       })
